@@ -326,15 +326,15 @@ public class NumericOperation extends Match {
         NumericOperation that = (NumericOperation) o;
 
         if (operation != that.operation) return false;
-        if (attribute != null ? !attribute.equals(that.attribute) : that.attribute != null) return false;
+        if (!attribute.equals(that.attribute)) return false;
         if (mode != that.mode) return false;
-        if (firstOperator != null ? !firstOperator.equals(that.firstOperator) : that.firstOperator != null)
+        if (!Objects.equals(firstOperator, that.firstOperator))
             return false;
-        if (secondOperator != null ? !secondOperator.equals(that.secondOperator) : that.secondOperator != null)
+        if (!Objects.equals(secondOperator, that.secondOperator))
             return false;
-        if (firstObject != null ? !firstObject.equals(that.firstObject) : that.firstObject != null) return false;
-        return !(secondObject != null ? !secondObject.equals(that.secondObject) : that.secondObject != null);
-
+        if (!Objects.equals(firstObject, that.firstObject))
+            return false;
+        return Objects.equals(secondObject, that.secondObject);
     }
 
     @Override
