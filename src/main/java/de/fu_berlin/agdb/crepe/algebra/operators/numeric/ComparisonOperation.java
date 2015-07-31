@@ -5,36 +5,41 @@ import de.fu_berlin.agdb.crepe.algebra.Operator;
 import de.fu_berlin.agdb.crepe.algebra.OperatorNotSupportedException;
 import de.fu_berlin.agdb.crepe.data.IEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
  * @author Simon Kalt
  */
 public class ComparisonOperation extends Match {
+    @Nonnull
     private final ComparisonOperationType operation;
+    @Nonnull
     private final String attribute;
+    @Nonnull
     private final Mode mode;
     private IEvent otherEvent;
     private Operator otherOperator;
     private Object otherObject;
 
-    private ComparisonOperation(ComparisonOperationType operation, String attribute, Mode mode) {
+    private ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Mode mode) {
         this.operation = Objects.requireNonNull(operation);
         this.attribute = Objects.requireNonNull(attribute);
         this.mode = Objects.requireNonNull(mode);
     }
 
-    public ComparisonOperation(ComparisonOperationType operation, String attribute, IEvent otherEvent) {
+    public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull IEvent otherEvent) {
         this(operation, attribute, Mode.EVENT);
         this.otherEvent = Objects.requireNonNull(otherEvent);
     }
 
-    public ComparisonOperation(ComparisonOperationType operation, String attribute, Operator otherOperator) {
+    public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Operator otherOperator) {
         this(operation, attribute, Mode.OPERATOR);
         this.otherOperator = Objects.requireNonNull(otherOperator);
     }
 
-    public ComparisonOperation(ComparisonOperationType operation, String attribute, Object otherObject) {
+    public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Object otherObject) {
         this(operation, attribute, Mode.OBJECT);
         this.otherObject = Objects.requireNonNull(otherObject);
     }
@@ -61,6 +66,7 @@ public class ComparisonOperation extends Match {
         return state;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(100);
@@ -88,7 +94,7 @@ public class ComparisonOperation extends Match {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

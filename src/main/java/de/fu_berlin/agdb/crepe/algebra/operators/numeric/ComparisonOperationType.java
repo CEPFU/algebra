@@ -5,6 +5,7 @@ import de.fu_berlin.agdb.crepe.algebra.OperatorNotSupportedException;
 import de.fu_berlin.agdb.crepe.data.IAttribute;
 import de.fu_berlin.agdb.crepe.data.IEvent;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.IntFunction;
@@ -41,7 +42,7 @@ public enum ComparisonOperationType {
      *                                       or if the attributeName is <em>not</em> equal to the provided
      *                                       object and doesn't implement the comparable interface.
      */
-    public static int compare(String attributeName, IEvent event, Object other) throws OperatorNotSupportedException {
+    public static int compare(String attributeName, @Nonnull IEvent event, @Nonnull Object other) throws OperatorNotSupportedException {
         // If the event is null or the attributeName doesn't exist, this throws the necessary exceptions for us.
         if (equalAttribute(attributeName, event, other)) {
             return 0;
@@ -65,7 +66,7 @@ public enum ComparisonOperationType {
      * @see Comparable
      */
     @SuppressWarnings("unchecked")
-    public static int compare(Object first, Object second) throws OperatorNotSupportedException {
+    public static int compare(@Nonnull Object first, @Nonnull Object second) throws OperatorNotSupportedException {
         Objects.requireNonNull(first);
         Objects.requireNonNull(second);
 
@@ -88,7 +89,7 @@ public enum ComparisonOperationType {
      * @return true if the attributeName exists in the event and is equal to the supplied object, false otherwise
      * @throws OperatorNotSupportedException if the attributeName is not found or the event is {@code null}.
      */
-    public static boolean equalAttribute(String attributeName, IEvent event, Object other) throws OperatorNotSupportedException {
+    public static boolean equalAttribute(String attributeName, @Nonnull IEvent event, Object other) throws OperatorNotSupportedException {
         IAttribute attribute = Optional.ofNullable(event)
                 .orElseThrow(() -> new OperatorNotSupportedException("Null event."))
                 .getAttributes()
@@ -113,7 +114,7 @@ public enum ComparisonOperationType {
      *                                       or if the attributeName is <em>not</em> equal to the provided
      *                                       object and doesn't implement the comparable interface.
      */
-    public boolean applyTo(String attributeName, IEvent event, Operator other) throws OperatorNotSupportedException {
+    public boolean applyTo(String attributeName, @Nonnull IEvent event, @Nonnull Operator other) throws OperatorNotSupportedException {
         IEvent otherEvent = Optional.ofNullable(other)
                 .map(Operator::getMatchingEvent)
                 .orElseThrow(() -> new OperatorNotSupportedException("Operator does not contain event with appropriately named attribute."));
@@ -131,7 +132,7 @@ public enum ComparisonOperationType {
      *                                       or if the attributeName is <em>not</em> equal to the provided
      *                                       object and doesn't implement the comparable interface.
      */
-    public boolean applyTo(String attributeName, IEvent event, IEvent other) throws OperatorNotSupportedException {
+    public boolean applyTo(String attributeName, @Nonnull IEvent event, @Nonnull IEvent other) throws OperatorNotSupportedException {
         Object otherValue = Optional.ofNullable(other)
                 .map(IEvent::getAttributes)
                 .map((map) -> map.get(attributeName))
@@ -151,7 +152,7 @@ public enum ComparisonOperationType {
      *                                       or if the attributeName is <em>not</em> equal to the provided
      *                                       object and doesn't implement the comparable interface.
      */
-    public boolean applyTo(String attributeName, IEvent event, Object other) throws OperatorNotSupportedException {
+    public boolean applyTo(String attributeName, @Nonnull IEvent event, @Nonnull Object other) throws OperatorNotSupportedException {
         return comparison.apply(compare(attributeName, event, other));
     }
 }

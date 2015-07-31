@@ -2,6 +2,8 @@ package de.fu_berlin.agdb.crepe.algebra.operators.numeric;
 
 import de.fu_berlin.agdb.crepe.algebra.OperatorNotSupportedException;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -62,7 +64,8 @@ public enum NumericOperationType implements BinaryOperator<Number> {
      * @param obj The object to test
      * @throws OperatorNotSupportedException If the object isn't a number
      */
-    protected static void assertNumber(Object obj) throws OperatorNotSupportedException {
+    protected static void assertNumber(@Nonnull Object obj) throws OperatorNotSupportedException {
+        Objects.requireNonNull(obj);
         if (!(obj instanceof Number))
             throw new OperatorNotSupportedException("Object " + obj + " is not a number.");
     }
@@ -163,7 +166,7 @@ public enum NumericOperationType implements BinaryOperator<Number> {
      * @return The result of applying the operation to the operands
      * @throws OperatorNotSupportedException If either parameter is not a number
      */
-    public Number applyObj(Object first, Object second) throws OperatorNotSupportedException {
+    public Number applyObj(@Nonnull Object first, @Nonnull Object second) throws OperatorNotSupportedException {
         assertNumber(first);
         assertNumber(second);
         return apply((Number) first, (Number) second);

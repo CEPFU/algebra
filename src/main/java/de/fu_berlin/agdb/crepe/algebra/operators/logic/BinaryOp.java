@@ -4,6 +4,8 @@ import de.fu_berlin.agdb.crepe.algebra.Operator;
 import de.fu_berlin.agdb.crepe.algebra.OperatorNotSupportedException;
 import de.fu_berlin.agdb.crepe.data.IEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BinaryOperator;
@@ -12,7 +14,9 @@ import java.util.function.BinaryOperator;
  * @author Simon Kalt
  */
 public class BinaryOp extends Operator {
+    @Nonnull
     private final List<Operator> operands;
+    @Nonnull
     private final BinaryOperatorType type;
 
     /**
@@ -21,7 +25,7 @@ public class BinaryOp extends Operator {
      * @param ofOperands A list of operands for this operator
      * @param type       Type of the operator
      */
-    public BinaryOp(BinaryOperatorType type, List<Operator> ofOperands) {
+    public BinaryOp(@Nonnull BinaryOperatorType type, @Nonnull List<Operator> ofOperands) {
         this.operands = Objects.requireNonNull(ofOperands);
         this.type = Objects.requireNonNull(type);
 
@@ -34,7 +38,8 @@ public class BinaryOp extends Operator {
      *
      * @param ofOperands A list of operands for this operator
      */
-    public static BinaryOp and(List<Operator> ofOperands) {
+    @Nonnull
+    public static BinaryOp and(@Nonnull List<Operator> ofOperands) {
         return new BinaryOp(BinaryOperatorType.AND, ofOperands);
     }
 
@@ -43,7 +48,8 @@ public class BinaryOp extends Operator {
      *
      * @param ofOperands A list of operands for this operator
      */
-    public static BinaryOp or(List<Operator> ofOperands) {
+    @Nonnull
+    public static BinaryOp or(@Nonnull List<Operator> ofOperands) {
         return new BinaryOp(BinaryOperatorType.OR, ofOperands);
     }
 
@@ -52,7 +58,8 @@ public class BinaryOp extends Operator {
      *
      * @param ofOperands A list of operands for this operator
      */
-    public static BinaryOp xor(List<Operator> ofOperands) {
+    @Nonnull
+    public static BinaryOp xor(@Nonnull List<Operator> ofOperands) {
         return new BinaryOp(BinaryOperatorType.XOR, ofOperands);
     }
 
@@ -67,6 +74,7 @@ public class BinaryOp extends Operator {
         return lastResult;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return String.format("%s(%s)", type, operands);
@@ -77,16 +85,18 @@ public class BinaryOp extends Operator {
         operands.forEach(Operator::reset);
     }
 
+    @Nonnull
     public List<Operator> getOperands() {
         return operands;
     }
 
+    @Nonnull
     public BinaryOperatorType getType() {
         return type;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

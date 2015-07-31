@@ -1,5 +1,6 @@
 package de.fu_berlin.agdb.crepe.algebra.operators.logic;
 
+import javax.annotation.Nonnull;
 import java.util.function.BinaryOperator;
 
 /**
@@ -11,9 +12,10 @@ public enum BinaryOperatorType {
     XOR(false, Boolean::logicalXor);
 
     private final boolean unit;
+    @Nonnull
     private final BinaryOperator<Boolean> operator;
 
-    BinaryOperatorType(boolean unit, BinaryOperator<Boolean> operator) {
+    BinaryOperatorType(boolean unit, @Nonnull BinaryOperator<Boolean> operator) {
         this.unit = unit;
         this.operator = operator;
     }
@@ -21,6 +23,7 @@ public enum BinaryOperatorType {
     /**
      * Returns the associated binary operator.
      */
+    @Nonnull
     public BinaryOperator<Boolean> getOperator() {
         return operator;
     }

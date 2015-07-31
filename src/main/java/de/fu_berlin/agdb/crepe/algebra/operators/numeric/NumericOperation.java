@@ -7,6 +7,8 @@ import de.fu_berlin.agdb.crepe.data.Event;
 import de.fu_berlin.agdb.crepe.data.IAttribute;
 import de.fu_berlin.agdb.crepe.data.IEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static de.fu_berlin.agdb.crepe.algebra.operators.numeric.NumericOperationType.*;
@@ -17,13 +19,16 @@ import static de.fu_berlin.agdb.crepe.algebra.operators.numeric.NumericOperation
  * @author Simon Kalt
  */
 public class NumericOperation extends Match {
+    @Nonnull
     private final NumericOperationType operation;
+    @Nonnull
     private final String attribute;
+    @Nonnull
     private Mode mode;
     private Operator firstOperator, secondOperator;
     private Object firstObject, secondObject;
 
-    private NumericOperation(NumericOperationType operation, String attribute, Mode mode) {
+    private NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Mode mode) {
         this.operation = Objects.requireNonNull(operation);
         this.attribute = Objects.requireNonNull(attribute);
         this.mode = Objects.requireNonNull(mode);
@@ -36,7 +41,7 @@ public class NumericOperation extends Match {
      * @param firstOperator  First operand
      * @param secondOperator Second operand
      */
-    public NumericOperation(NumericOperationType operation, String attribute, Operator firstOperator, Operator secondOperator) {
+    public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Operator firstOperator, @Nonnull Operator secondOperator) {
         this(operation, attribute, Mode.OPERATORS);
         this.firstOperator = Objects.requireNonNull(firstOperator);
         this.secondOperator = Objects.requireNonNull(secondOperator);
@@ -53,7 +58,7 @@ public class NumericOperation extends Match {
      * @param first     first operand
      * @param second    second operand
      */
-    public NumericOperation(NumericOperationType operation, String attribute, Object first, Operator second) {
+    public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         this(operation, attribute, Mode.OBJ_OP);
 
         this.firstObject = Objects.requireNonNull(first);
@@ -68,7 +73,7 @@ public class NumericOperation extends Match {
      * @param first     first operand
      * @param second    second operand
      */
-    public NumericOperation(NumericOperationType operation, String attribute, Operator first, Object second) {
+    public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         this(operation, attribute, Mode.OP_OBJ);
 
         this.firstOperator = Objects.requireNonNull(first);
@@ -83,7 +88,7 @@ public class NumericOperation extends Match {
      * @param first     first operand
      * @param second    second operand
      */
-    public NumericOperation(NumericOperationType operation, String attribute, Object first, Object second) {
+    public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         this(operation, attribute, Mode.OBJECTS);
 
         this.firstObject = Objects.requireNonNull(first);
@@ -96,7 +101,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation add(String attribute, Operator first, Operator second) {
+    @Nonnull
+    public static NumericOperation add(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Operator second) {
         return new NumericOperation(ADD, attribute, first, second);
     }
 
@@ -106,7 +112,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation add(String attribute, Object first, Operator second) {
+    @Nonnull
+    public static NumericOperation add(@Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         return new NumericOperation(ADD, attribute, first, second);
     }
 
@@ -116,7 +123,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation add(String attribute, Operator first, Object second) {
+    @Nonnull
+    public static NumericOperation add(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         return new NumericOperation(ADD, attribute, first, second);
     }
 
@@ -126,7 +134,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation add(String attribute, Object first, Object second) {
+    @Nonnull
+    public static NumericOperation add(@Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         return new NumericOperation(ADD, attribute, first, second);
     }
 
@@ -136,7 +145,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation subtract(String attribute, Operator first, Operator second) {
+    @Nonnull
+    public static NumericOperation subtract(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Operator second) {
         return new NumericOperation(SUBTRACT, attribute, first, second);
     }
 
@@ -146,7 +156,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation subtract(String attribute, Object first, Operator second) {
+    @Nonnull
+    public static NumericOperation subtract(@Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         return new NumericOperation(SUBTRACT, attribute, first, second);
     }
 
@@ -156,7 +167,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation subtract(String attribute, Operator first, Object second) {
+    @Nonnull
+    public static NumericOperation subtract(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         return new NumericOperation(SUBTRACT, attribute, first, second);
     }
 
@@ -166,7 +178,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation subtract(String attribute, Object first, Object second) {
+    @Nonnull
+    public static NumericOperation subtract(@Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         return new NumericOperation(SUBTRACT, attribute, first, second);
     }
 
@@ -176,7 +189,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation multiply(String attribute, Operator first, Operator second) {
+    @Nonnull
+    public static NumericOperation multiply(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Operator second) {
         return new NumericOperation(MULTIPLY, attribute, first, second);
     }
 
@@ -186,7 +200,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation multiply(String attribute, Object first, Operator second) {
+    @Nonnull
+    public static NumericOperation multiply(@Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         return new NumericOperation(MULTIPLY, attribute, first, second);
     }
 
@@ -196,7 +211,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation multiply(String attribute, Operator first, Object second) {
+    @Nonnull
+    public static NumericOperation multiply(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         return new NumericOperation(MULTIPLY, attribute, first, second);
     }
 
@@ -206,7 +222,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation multiply(String attribute, Object first, Object second) {
+    @Nonnull
+    public static NumericOperation multiply(@Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         return new NumericOperation(MULTIPLY, attribute, first, second);
     }
 
@@ -216,7 +233,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation divide(String attribute, Operator first, Operator second) {
+    @Nonnull
+    public static NumericOperation divide(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Operator second) {
         return new NumericOperation(DIVIDE, attribute, first, second);
     }
 
@@ -226,7 +244,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation divide(String attribute, Object first, Operator second) {
+    @Nonnull
+    public static NumericOperation divide(@Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         return new NumericOperation(DIVIDE, attribute, first, second);
     }
 
@@ -236,7 +255,8 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation divide(String attribute, Operator first, Object second) {
+    @Nonnull
+    public static NumericOperation divide(@Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         return new NumericOperation(DIVIDE, attribute, first, second);
     }
 
@@ -246,12 +266,14 @@ public class NumericOperation extends Match {
      * @param first  First operand
      * @param second Second operand
      */
-    public static NumericOperation divide(String attribute, Object first, Object second) {
+    @Nonnull
+    public static NumericOperation divide(@Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         return new NumericOperation(DIVIDE, attribute, first, second);
     }
 
     // TODO: Move to more generic class?
-    public static Object getAttributeValue(Operator operator, String name) throws OperatorNotSupportedException {
+    @Nullable
+    public static Object getAttributeValue(@Nonnull Operator operator, String name) throws OperatorNotSupportedException {
         IEvent matchingEvent = operator.getMatchingEvent();
 
         if (matchingEvent == null)
@@ -294,7 +316,7 @@ public class NumericOperation extends Match {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -324,6 +346,7 @@ public class NumericOperation extends Match {
         return result;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(50);
