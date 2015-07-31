@@ -292,25 +292,27 @@ public class NumericOperation extends Match {
 
     @Override
     public boolean apply(IEvent event) throws OperatorNotSupportedException {
+        Object first = firstObject;
+        Object second = secondObject;
         switch (mode) {
             case OPERATORS:
-                firstObject = getAttributeValue(firstOperator, attribute);
-                secondObject = getAttributeValue(secondOperator, attribute);
+                first = getAttributeValue(firstOperator, attribute);
+                second = getAttributeValue(secondOperator, attribute);
                 break;
             case OBJ_OP:
-                secondObject = getAttributeValue(secondOperator, attribute);
+                second = getAttributeValue(secondOperator, attribute);
                 break;
             case OP_OBJ:
-                firstObject = getAttributeValue(firstOperator, attribute);
+                first = getAttributeValue(firstOperator, attribute);
                 break;
             case OBJECTS:
                 break;
         }
 
-        // We have the attribute values now, so we can set the mode to "OBJECTS"
-        this.mode = Mode.OBJECTS;
+        Objects.requireNonNull(first, "First argument to numeric operation is null.");
+        Objects.requireNonNull(second, "Second argument to numeric operation is null.");
 
-        Number result = operation.applyObj(firstObject, secondObject);
+        Number result = operation.applyObj(first, second);
         setMatchingEvent(new Event(attribute, result));
 
         return true;
@@ -347,20 +349,19 @@ public class NumericOperation extends Match {
         result.append(operation.toString())
                 .append("(");
 
-        if (mode == Mode.OPERATORS || firstOperator != null && secondOperator != null) {
-            result.append(firstOperator).append(", ").append(secondOperator);
-        } else {
-            switch (mode) {
-                case OBJECTS:
-                    result.append(firstObject).append(", ").append(secondObject);
-                    break;
-                case OBJ_OP:
-                    result.append(firstObject).append(", ").append(secondOperator);
-                    break;
-                case OP_OBJ:
-                    result.append(firstOperator).append(", ").append(secondObject);
-                    break;
-            }
+        switch (mode) {
+            case OPERATORS:
+                result.append(firstOperator).append(", ").append(secondOperator);
+                break;
+            case OBJECTS:
+                result.append(firstObject).append(", ").append(secondObject);
+                break;
+            case OBJ_OP:
+                result.append(firstObject).append(", ").append(secondOperator);
+                break;
+            case OP_OBJ:
+                result.append(firstOperator).append(", ").append(secondObject);
+                break;
         }
 
         result.append(")");
