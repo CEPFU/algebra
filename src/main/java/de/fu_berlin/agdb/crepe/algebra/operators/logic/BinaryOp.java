@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BinaryOperator;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Simon Kalt
  */
@@ -26,8 +28,8 @@ public class BinaryOp extends Operator {
      * @param type       Type of the operator
      */
     public BinaryOp(@Nonnull BinaryOperatorType type, @Nonnull List<Operator> ofOperands) {
-        this.operands = Objects.requireNonNull(ofOperands);
-        this.type = Objects.requireNonNull(type);
+        this.operands = requireNonNull(ofOperands);
+        this.type = requireNonNull(type);
 
         // For backwards compatibility:
         this.children = ofOperands.toArray(new Operator[ofOperands.size()]);
@@ -108,8 +110,6 @@ public class BinaryOp extends Operator {
 
     @Override
     public int hashCode() {
-        int result = operands.hashCode();
-        result = 31 * result + type.hashCode();
-        return result;
+        return Objects.hash(operands, type);
     }
 }

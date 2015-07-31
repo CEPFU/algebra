@@ -9,6 +9,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Simon Kalt
  */
@@ -24,24 +26,24 @@ public class ComparisonOperation extends Match {
     private Object otherObject;
 
     private ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Mode mode) {
-        this.operation = Objects.requireNonNull(operation);
-        this.attribute = Objects.requireNonNull(attribute);
-        this.mode = Objects.requireNonNull(mode);
+        this.operation = requireNonNull(operation);
+        this.attribute = requireNonNull(attribute);
+        this.mode = requireNonNull(mode);
     }
 
     public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull IEvent otherEvent) {
         this(operation, attribute, Mode.EVENT);
-        this.otherEvent = Objects.requireNonNull(otherEvent);
+        this.otherEvent = requireNonNull(otherEvent);
     }
 
     public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Operator otherOperator) {
         this(operation, attribute, Mode.OPERATOR);
-        this.otherOperator = Objects.requireNonNull(otherOperator);
+        this.otherOperator = requireNonNull(otherOperator);
     }
 
     public ComparisonOperation(@Nonnull ComparisonOperationType operation, @Nonnull String attribute, @Nonnull Object otherObject) {
         this(operation, attribute, Mode.OBJECT);
-        this.otherObject = Objects.requireNonNull(otherObject);
+        this.otherObject = requireNonNull(otherObject);
     }
 
     @Override
@@ -112,13 +114,7 @@ public class ComparisonOperation extends Match {
 
     @Override
     public int hashCode() {
-        int result = operation.hashCode();
-        result = 31 * result + attribute.hashCode();
-        result = 31 * result + mode.hashCode();
-        result = 31 * result + (otherEvent != null ? otherEvent.hashCode() : 0);
-        result = 31 * result + (otherOperator != null ? otherOperator.hashCode() : 0);
-        result = 31 * result + (otherObject != null ? otherObject.hashCode() : 0);
-        return result;
+        return Objects.hash(operation, attribute, mode, otherEvent, otherOperator, otherObject);
     }
 
     private enum Mode {

@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static de.fu_berlin.agdb.crepe.algebra.operators.numeric.NumericOperationType.*;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Match that performs numeric operations.
@@ -29,9 +30,9 @@ public class NumericOperation extends Match {
     private Object firstObject, secondObject;
 
     private NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Mode mode) {
-        this.operation = Objects.requireNonNull(operation);
-        this.attribute = Objects.requireNonNull(attribute);
-        this.mode = Objects.requireNonNull(mode);
+        this.operation = requireNonNull(operation);
+        this.attribute = requireNonNull(attribute);
+        this.mode = requireNonNull(mode);
     }
 
     /**
@@ -43,8 +44,8 @@ public class NumericOperation extends Match {
      */
     public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Operator firstOperator, @Nonnull Operator secondOperator) {
         this(operation, attribute, Mode.OPERATORS);
-        this.firstOperator = Objects.requireNonNull(firstOperator);
-        this.secondOperator = Objects.requireNonNull(secondOperator);
+        this.firstOperator = requireNonNull(firstOperator);
+        this.secondOperator = requireNonNull(secondOperator);
 
         // For backwards compatibility:
         this.setChildren(firstOperator, secondOperator);
@@ -61,8 +62,8 @@ public class NumericOperation extends Match {
     public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Object first, @Nonnull Operator second) {
         this(operation, attribute, Mode.OBJ_OP);
 
-        this.firstObject = Objects.requireNonNull(first);
-        this.secondOperator = Objects.requireNonNull(second);
+        this.firstObject = requireNonNull(first);
+        this.secondOperator = requireNonNull(second);
     }
 
     /**
@@ -76,8 +77,8 @@ public class NumericOperation extends Match {
     public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Operator first, @Nonnull Object second) {
         this(operation, attribute, Mode.OP_OBJ);
 
-        this.firstOperator = Objects.requireNonNull(first);
-        this.secondObject = Objects.requireNonNull(second);
+        this.firstOperator = requireNonNull(first);
+        this.secondObject = requireNonNull(second);
     }
 
     /**
@@ -91,8 +92,8 @@ public class NumericOperation extends Match {
     public NumericOperation(@Nonnull NumericOperationType operation, @Nonnull String attribute, @Nonnull Object first, @Nonnull Object second) {
         this(operation, attribute, Mode.OBJECTS);
 
-        this.firstObject = Objects.requireNonNull(first);
-        this.secondObject = Objects.requireNonNull(second);
+        this.firstObject = requireNonNull(first);
+        this.secondObject = requireNonNull(second);
     }
 
     /**
@@ -336,14 +337,7 @@ public class NumericOperation extends Match {
 
     @Override
     public int hashCode() {
-        int result = operation != null ? operation.hashCode() : 0;
-        result = 31 * result + (attribute != null ? attribute.hashCode() : 0);
-        result = 31 * result + (mode != null ? mode.hashCode() : 0);
-        result = 31 * result + (firstOperator != null ? firstOperator.hashCode() : 0);
-        result = 31 * result + (secondOperator != null ? secondOperator.hashCode() : 0);
-        result = 31 * result + (firstObject != null ? firstObject.hashCode() : 0);
-        result = 31 * result + (secondObject != null ? secondObject.hashCode() : 0);
-        return result;
+        return Objects.hash(operation, attribute, firstOperator, secondOperator, firstObject, secondObject);
     }
 
     @Nonnull

@@ -3,11 +3,12 @@ package de.fu_berlin.agdb.crepe.algebra.operators.numeric;
 import de.fu_berlin.agdb.crepe.algebra.OperatorNotSupportedException;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Describes different types of numeric operations.
@@ -63,9 +64,10 @@ public enum NumericOperationType implements BinaryOperator<Number> {
      *
      * @param obj The object to test
      * @throws OperatorNotSupportedException If the object isn't a number
+     * @throws NullPointerException If the object is null
      */
     protected static void assertNumber(@Nonnull Object obj) throws OperatorNotSupportedException {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         if (!(obj instanceof Number))
             throw new OperatorNotSupportedException("Object " + obj + " is not a number.");
     }
